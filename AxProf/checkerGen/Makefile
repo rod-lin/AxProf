@@ -3,7 +3,7 @@ MainClass.class: antlr-4.7.1-complete.jar
 	javac -cp antlr-4.7.1-complete.jar *.java
 
 antlr-4.7.1-complete.jar:
-	wget https://www.antlr.org/download/antlr-4.7.1-complete.jar
+	wget --no-check-certificate https://www.antlr.org/download/antlr-4.7.1-complete.jar
 
 .PHONY: clean
 clean:
