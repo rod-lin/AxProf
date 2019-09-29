@@ -19,7 +19,7 @@ spec_negative = """
     Input list of real;
     Output real;
     TIME (n ^ 0.5) / eps;
-    ACC Probability over runs [Output == 0] >= 3 / 4
+    ACC Probability over runs [Output == 0] >= 0.75
 """
 
 def far_from_distinct(config, lst):
