@@ -2,6 +2,7 @@ import sys
 import math
 import time
 import random
+import matplotlib.pyplot as plot
 from countminsketch import CountMinSketch
 
 sys.path.append("../AxProf")
@@ -20,22 +21,25 @@ spec = """
     Output map from real to real;
     TIME n;
     ACC Probability over i in uniques(Input)
-        [ abs(count(i, Input) - Output[i]) > eps * len(Input) ] < 1 - delta
+        [ Output[i] > eps * len(Input) ] < delta
 """
 
 def ln(x):
     return math.log(x, math.e)
 
-def count(i, lst):
-    c = 0
+def actual_count(lst):
+    actual_map = {}
 
-    for j in lst:
-        if j == i: c += 1
+    for i in lst:
+        if i not in actual_map:
+            actual_map[i] = 0
 
-    return c
+        actual_map[i] += 1
+
+    return actual_map
 
 def input_params(config, inputNum):
-    return [config["n"], 0, 999]
+    return [config["n"], 1.1]
 
 def runner(input_file_name, config):
     # read the list of integers
@@ -49,14 +53,15 @@ def runner(input_file_name, config):
     for num in lst: sketch.add(num)
     endTime = time.time()
 
-    result = {}
+    actual_map = actual_count(lst)
+    error_map = {}
 
-    for num in lst:
-        result[num] = sketch[num]
+    for num in set(lst):
+        error_map[num] = abs(actual_map[num] - sketch[num])
 
     return {
-        "acc": result,
-        "time": endTime - startTime,
+        "acc": error_map,
+        "time": config["m"] * config["d"], # endTime - startTime,
         "space": 0,
     }
 
@@ -72,29 +77,75 @@ def uniformIntegerGenerator(length, _min, _max, seed=None):
     return lst
 
 # average error
-def accMetric(input, output, params):
+def acc_metric(input, output, params):
     err_count = 0
     unique = set(input)
+    actual_map = actual_count(input)
 
     for i in unique:
-        actual = count(i, input)
+        actual = actual_map[i]
         if abs(actual - output[i]) > params["eps"] * len(input):
             err_count += 1
 
     return 1 - err_count / len(unique)
 
+def plot_error(lst, m, d, color=None, label=None):
+    sketch = CountMinSketch(m, d)
+    actual_map = actual_count(lst)
+
+    for i in lst: sketch.add(i)
+
+    errors = []
+    unique = set(lst)
+
+    for i in unique:
+        actual = actual_map[i]
+        error = abs(actual - sketch[i])
+        errors.append(error)
+
+    print(len(errors))
+
+    plot.hist(errors, bins=len(errors) // 100, color=color, label=label)
+    plot.xlim(0, int(len(lst) * 0.1))
+
+def compare_config(n, eps, delta, opt_m, opt_d):
+    lst = AxProf.zipfGenerator(n, 1.1)
+
+    m = math.ceil(math.e / eps)
+    d = math.ceil(ln(1 / delta))
+
+    print("m = {}, d = {}".format(m, d))
+    print("tuned m = {}, d = {}".format(opt_m, opt_d))
+    print("threshold {}%% of counts will have error less than {}".format((1 - delta) * 100, eps * n))
+
+
+    plot_error(lst, opt_m, opt_d, color="red", label="tuned")
+    plot_error(lst, m, d, color="blue", label="original")
+    plot.legend()
+    plot.xlabel("error")
+    plot.ylabel("number of elements")
+    
+    plot.show()
+
 if __name__ == '__main__':
+    n = 100000
+    eps = 0.05
+    delta = 0.1
+    
     argparser = opentuner.default_argparser()
     args = argparser.parse_args()
 
     results = AxProfTune.AxProfTune(
         args,
-        {"n": 50000, "eps": 0.001, "delta": 0.95}, [
+        {"n": n, "eps": eps, "delta": delta}, [
             IntegerParameter("m", 1, 1000),
             IntegerParameter("d", 1, 10),
         ],
-        [0.95], 3, 20,
-        uniformIntegerGenerator, input_params, runner, spec, accMetric,
+        [1 - delta], 1, 20,
+        AxProf.zipfGenerator, input_params, runner, spec, acc_metric,
     )
 
-    print(results)
+    opt_config = results[0][1]
+    print("opt config", opt_config)
+
+    compare_config(n, eps, delta, opt_config["m"], opt_config["d"])
