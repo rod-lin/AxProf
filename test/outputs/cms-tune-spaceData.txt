@@ -1,0 +1,2 @@
+m	d	n	eps	delta	space
+851	5	50000	0.001	0.95	0.0
