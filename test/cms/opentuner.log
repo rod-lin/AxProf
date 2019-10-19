@@ -5002,3 +5002,26 @@
 [2019-10-19 11:10:50,591] WARNING opentuner.search.driver: duplicate configuration request #43 NormalGreedyMutation/NormalGreedyMutation OLD @driver.py:190
 [2019-10-19 11:11:18,715] WARNING opentuner.search.driver: duplicate configuration request #25 NormalGreedyMutation/NormalGreedyMutation OLD @driver.py:190
 [2019-10-19 11:11:20,107] WARNING opentuner.search.driver: duplicate configuration request #37 UniformGreedyMutation/NormalGreedyMutation OLD @driver.py:190
+[2019-10-19 11:12:52,221] WARNING opentuner.search.driver: duplicate configuration request #12 NormalGreedyMutation/UniformGreedyMutation OLD @driver.py:190
+[2019-10-19 11:12:52,505] WARNING opentuner.search.driver: duplicate configuration request #17 NormalGreedyMutation/NormalGreedyMutation PENDING @driver.py:190
+[2019-10-19 11:12:52,512] WARNING opentuner.search.driver: duplicate configuration request #19 NormalGreedyMutation/NormalGreedyMutation PENDING @driver.py:190
+[2019-10-19 11:12:53,069] WARNING opentuner.search.driver: Result callback 71302 (requestor=NormalGreedyMutation) pending for 1 generations 1 results available @driver.py:149
+[2019-10-19 11:12:53,084] WARNING opentuner.search.driver: duplicate configuration request #27 NormalGreedyMutation/NormalGreedyMutation OLD @driver.py:190
+[2019-10-19 11:12:53,824] WARNING opentuner.search.driver: duplicate configuration request #32 NormalGreedyMutation/NormalGreedyMutation OLD @driver.py:190
+[2019-10-19 11:12:53,830] WARNING opentuner.search.driver: duplicate configuration request #33 NormalGreedyMutation/NormalGreedyMutation OLD @driver.py:190
+[2019-10-19 11:12:53,834] WARNING opentuner.search.driver: duplicate configuration request #34 NormalGreedyMutation/NormalGreedyMutation OLD @driver.py:190
+[2019-10-19 11:12:53,936] WARNING opentuner.search.driver: duplicate configuration request #38 NormalGreedyMutation/NormalGreedyMutation OLD @driver.py:190
+[2019-10-19 11:12:54,196] WARNING opentuner.search.driver: duplicate configuration request #42 NormalGreedyMutation/NormalGreedyMutation OLD @driver.py:190
+[2019-10-19 11:12:54,201] WARNING opentuner.search.driver: duplicate configuration request #43 NormalGreedyMutation/NormalGreedyMutation OLD @driver.py:190
+[2019-10-19 11:12:54,370] WARNING opentuner.search.driver: duplicate configuration request #44 NormalGreedyMutation/NormalGreedyMutation OLD @driver.py:190
+[2019-10-19 11:12:54,654] WARNING opentuner.search.driver: duplicate configuration request #51 NormalGreedyMutation/NormalGreedyMutation OLD @driver.py:190
+[2019-10-19 11:12:54,964] WARNING opentuner.search.driver: duplicate configuration request #55 NormalGreedyMutation/NormalGreedyMutation OLD @driver.py:190
+[2019-10-19 11:13:00,815] WARNING opentuner.search.driver: duplicate configuration request #30 DifferentialEvolutionAlt/NormalGreedyMutation OLD @driver.py:190
+[2019-10-19 11:13:04,635] WARNING opentuner.search.driver: duplicate configuration request #17 NormalGreedyMutation/NormalGreedyMutation PENDING @driver.py:190
+[2019-10-19 11:13:04,930] WARNING opentuner.search.driver: duplicate configuration request #23 NormalGreedyMutation/NormalGreedyMutation PENDING @driver.py:190
+[2019-10-19 11:13:06,112] WARNING opentuner.search.driver: duplicate configuration request #32 NormalGreedyMutation/NormalGreedyMutation OLD @driver.py:190
+[2019-10-19 11:13:06,116] WARNING opentuner.search.driver: duplicate configuration request #33 NormalGreedyMutation/NormalGreedyMutation OLD @driver.py:190
+[2019-10-19 11:13:06,122] WARNING opentuner.search.driver: duplicate configuration request #34 NormalGreedyMutation/DifferentialEvolutionAlt OLD @driver.py:190
+[2019-10-19 11:13:06,632] WARNING opentuner.search.driver: duplicate configuration request #43 NormalGreedyMutation/NormalGreedyMutation OLD @driver.py:190
+[2019-10-19 11:13:06,932] WARNING opentuner.search.driver: duplicate configuration request #45 NormalGreedyMutation/NormalGreedyMutation OLD @driver.py:190
+[2019-10-19 11:13:06,937] WARNING opentuner.search.driver: duplicate configuration request #46 NormalGreedyMutation/NormalGreedyMutation OLD @driver.py:190

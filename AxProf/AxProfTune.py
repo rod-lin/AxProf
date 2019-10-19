@@ -55,7 +55,7 @@ class AxProfTunerInterface(MeasurementInterface):
       sys.stdout.write('.')
       sys.stdout.flush()
       output = self.runner(AxProf.defaultInputFileName, allParamVals)
-      acc = self.accMetric(self.inputData,output['acc'],allParamVals)
+      acc = self.accMetric(output['input'],output['acc'],allParamVals)
       time = output['time']
       if acc<minAcc:
         minAcc = acc
@@ -66,6 +66,7 @@ class AxProfTunerInterface(MeasurementInterface):
 
   def save_final_config(self, configuration):
     global lastThresholdBestresult
+    global lastBestConfig
     bestresult = self.driver.results_query(config=configuration, objective_ordered=True)[0]
     adjParamVals = {}
     for param in self.adjParams:
@@ -83,6 +84,7 @@ class AxProfTunerInterface(MeasurementInterface):
       print("Skipping verification")
     print("Optimal configuration for",self.stableParams,"and accuracy threshold",self.accThresh)
     print(adjParamVals)
+    lastBestConfig = adjParamVals
     print("Optimal time:",bestresult.time)
     print("Optimal accuracy:",bestresult.accuracy)
     lastThresholdBestresult = (bestresult.accuracy,bestresult.time)
@@ -90,11 +92,12 @@ class AxProfTunerInterface(MeasurementInterface):
 
 def AxProfTune(args, stableParams, adjParams, accThreshs, tuneRuns, verifyRuns, inputGen, inputGenParams, runner, spec, accMetric):
   global lastThresholdBestresult
+  global lastBestConfig
   results = []
   for accThresh in accThreshs:
     print("Tuning for accuracy threshold",accThresh)
     AxProfTunerInterface.main(args, stableParams, adjParams, accThresh, tuneRuns, verifyRuns, inputGen, inputGenParams, runner, spec, accMetric)
-    results.append(copy.deepcopy(lastThresholdBestresult))
+    results.append((copy.deepcopy(lastThresholdBestresult), lastBestConfig))
   return results
 
 def plotPareto(results):
