@@ -1,0 +1,1 @@
+{"n": 10002, "eps": 0.05, "delta": 0.1, "skew": 1.4515151515151516, "m_range": [1, 100], "d_range": [1, 10], "tune_run": 5, "spec_run": 2, "opt_m": 41, "opt_d": 1}
